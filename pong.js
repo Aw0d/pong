@@ -11,7 +11,7 @@ class Ball {
     this.speedX = settings.speedX;
     this.speedY = settings.speedY;
 
-    this.coefAngle = settings.coefAngle;
+    this.maxAngle = settings.maxAngle;
     this.coefSpeed = settings.coefSpeed;
     this.maxSpeed = settings.maxSpeed;
 
@@ -40,16 +40,18 @@ class Ball {
   collisionDetection(paddle1, paddle2, score, canvas) {
     // Déterminer l'angle de la balle
     let ballPaddleDiff;
+    let angle;
 
     if (this.x - this.radius < paddle1.width) {
       ballPaddleDiff = this.y - (paddle1.y + paddle1.height / 2);
+      angle = 90 - (ballPaddleDiff/(paddle1.height / 2)) * (90 - (180 - this.maxAngle));
+      
+      this.speedY = (1/Math.tan((Math.PI/180) * angle)) * Math.abs(this.speedX);    
     } else if (this.x + this.radius > canvas.width - paddle2.width) {
       ballPaddleDiff = this.y - (paddle2.y + paddle2.height / 2);
-    }
-    if (this.x - this.radius < paddle1.width) {
-      this.speedY = ballPaddleDiff * this.coefAngle;
-    } else if (this.x + this.radius > canvas.width - paddle2.width) {
-      this.speedY = ballPaddleDiff * this.coefAngle;
+      angle = 90 + (ballPaddleDiff/(paddle2.height / 2)) * (90 - (180 - this.maxAngle));
+
+      this.speedY = -(1/Math.tan((Math.PI/180) * angle)) * Math.abs(this.speedX);
     }
 
     // Rebondir sur les paddles
@@ -216,9 +218,9 @@ const settings = {
     radius: 10,
     speedX: 2,
     speedY: 2,
-    coefAngle: 0.2,
+    maxAngle: 120,
     coefSpeed: 1.1,
-    maxSpeed: 20,
+    maxSpeed: 8,
     couleur: "#ababab"
   },
   joueur1: {
