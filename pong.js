@@ -203,6 +203,14 @@ class Button {
 // Settings
 // ========
 
+const colors = {
+  blue: '#3366FF',
+  red: '#FF3333',
+  darkGrey: '#222222',
+  lightGrey: '#2E2E2E',
+  text: '#e3e3e3'
+}
+
 const settings = {
   ball: {
     radius: 10,
@@ -211,13 +219,13 @@ const settings = {
     coefAngle: 0.2,
     coefSpeed: 1.1,
     maxSpeed: 20,
-    couleur: "#ff0000"
+    couleur: "#ababab"
   },
   joueur1: {
     height: 120,
     width: 10,
     speed: 8,
-    couleur: "#0000ff",
+    couleur: colors.blue,
     upKey: "KeyW",
     downKey: "KeyS"
   },
@@ -225,11 +233,11 @@ const settings = {
     height: 120,
     width: 10,
     speed: 8,
-    couleur: "#00ff00",
+    couleur: colors.red,
     upKey: "ArrowUp",
     downKey: "ArrowDown"
   },
-  fps: 60
+  fps: 144
 }
 
 // ====
@@ -263,21 +271,21 @@ let score;
 
 // Menu principal
 let mainMenuButtons = [
-  new Button(canvas.width / 2 - 100, 200, 200, 80, 5, '#0000ff', '#ffffff', '26px', 'Jouer', (() => {
+  new Button(canvas.width / 2 - 100, 200, 200, 80, 5, colors.blue, colors.text, '26px', 'Jouer', (() => {
     resetGame();
     state = 1;
   })),
-  new Button(canvas.width / 2 - 100, 300, 200, 80, 5, '#ff0000', '#ffffff', '26px', 'Settings', (() => state = 3))
+  new Button(canvas.width / 2 - 100, 300, 200, 80, 5, colors.red, colors.text, '26px', 'Settings', (() => state = 3))
 ];
 
 // Menu pause
 let pauseMenuButtons = [
-  new Button(canvas.width / 2 - 100, 200, 200, 80, 5, '#0000ff', '#ffffff', '26px', 'Jouer', (() => state = 1)),
-  new Button(canvas.width / 2 - 100, 300, 200, 80, 5, '#0000ff', '#ffffff', '26px', 'Recommencer', (() => {
+  new Button(canvas.width / 2 - 100, 200, 200, 80, 5, colors.blue, colors.text, '26px', 'Jouer', (() => state = 1)),
+  new Button(canvas.width / 2 - 100, 300, 200, 80, 5, colors.blue, colors.text, '26px', 'Recommencer', (() => {
     resetGame();
     state = 1;
   })),
-  new Button(canvas.width / 2 - 100, 400, 200, 80, 5, '#ff0000', '#ffffff', '26px', 'Quitter', (() => state = 0))
+  new Button(canvas.width / 2 - 100, 400, 200, 80, 5, colors.red, colors.text, '26px', 'Quitter', (() => state = 0))
 ];
 
 // Fonctions
