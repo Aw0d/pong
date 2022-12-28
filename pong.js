@@ -348,17 +348,17 @@ function gameLoop() {
 // ----
 
 function mainLoop() {
-  if (state == 0) { // Menu du jeu
+  if (state === 0) { // Menu du jeu
     mainMenu();
-  } else if (state == 1) { // Jeu
+  } else if (state === 1) { // Jeu
     gameLoop();
 
     if ('Escape' in keysDown) { // Si on doit mettre pause
       state = 2;
     }
-  } else if (state == 2) { // Menu pause en Jeu
+  } else if (state === 2) { // Menu pause en Jeu
     pauseMenu();
-  } else if (state == 3) { // Settings
+  } else if (state === 3) { // Settings
     // Draw menu settings
   }
 }
@@ -369,6 +369,11 @@ function mainLoop() {
 // Détection des touches
 document.addEventListener('keydown', (e) => {
   keysDown[e.code] = true;
+
+  // Empêche le défilement de la page lorsque l'on appuie sur les flèches
+  if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
+    e.preventDefault();
+  }
 });
 document.addEventListener('keyup', (e) => {
   delete keysDown[e.code];
