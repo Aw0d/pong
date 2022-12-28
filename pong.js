@@ -206,8 +206,8 @@ class Button {
 // ========
 
 const colors = {
-  blue: '#3366FF',
-  red: '#FF3333',
+  blue: '#3DC7AD',
+  red: '#F3522C',
   darkGrey: '#222222',
   lightGrey: '#2E2E2E',
   text: '#e3e3e3'
@@ -218,7 +218,7 @@ const settings = {
     radius: 10,
     speedX: 2,
     speedY: 2,
-    maxAngle: 120,
+    maxAngle: 140,
     coefSpeed: 1.1,
     maxSpeed: 8,
     couleur: "#ababab"
@@ -276,8 +276,7 @@ let mainMenuButtons = [
   new Button(canvas.width / 2 - 100, 200, 200, 80, 5, colors.blue, colors.text, '26px', 'Jouer', (() => {
     resetGame();
     state = 1;
-  })),
-  new Button(canvas.width / 2 - 100, 300, 200, 80, 5, colors.red, colors.text, '26px', 'Settings', (() => state = 3))
+  }))
 ];
 
 // Menu pause
