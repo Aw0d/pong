@@ -36,7 +36,7 @@ header {
 }
 
 header:hover > .logo {
-    animation: titre-anim 3.6s ease-in-out;
+    animation: titre-anim 3.2s ease-in-out;
 }
 
 @keyframes titre-anim {
@@ -100,6 +100,32 @@ header:hover > .logo {
 
 /* Règles main */
 
+@keyframes txt_neon {
+  from {
+    text-decoration:underline rgb(var(--red));
+  }
+  to {
+    text-decoration:underline rgb(var(--blue));
+  }
+}
+
+p {
+  animation: fondu .6s ease-in-out, txt_neon 2s ease-in-out infinite alternate;
+
+  margin: 8px 0;
+
+  color: rgb(var(--text));
+
+  font-size: 2.6vh;
+  text-align: center;
+  line-height: 4vh;
+  text-decoration:underline rgb(var(--blue));
+}
+
+.logo_txt {
+  height: 2.6vh;
+}
+
 @keyframes fondu {
   0% {
     opacity: 0.01;
@@ -140,9 +166,7 @@ footer {
     justify-content: center;
     align-items: center;
 
-    position: fixed;
-    bottom: 0;
-
+    margin-top: auto;
     width: 100%;
     margin-top: 80px;
     padding-bottom: 20px;
