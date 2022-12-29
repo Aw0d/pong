@@ -1,35 +1,42 @@
+@font-face {
+  font-family: 'Tequilla Sunrise';
+  src: url('/fonts/Tequilla\ Sunrise.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-    --red: 243, 82, 44;
-    --blue: 61, 199, 173;
-    --dark-grey: 34, 34, 34;
-    --light-grey: 46, 46, 46;
-    --text: 227, 227, 227;
+  --red: 243, 82, 44;
+  --blue: 61, 199, 173;
+  --dark-grey: 34, 34, 34;
+  --light-grey: 46, 46, 46;
+  --text: 227, 227, 227;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    margin: 0;
+  margin: 0;
 
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(var(--text));
+  font-family: 'Tequilla Sunrise', sans-serif;
+  color: rgb(var(--text));
 
-    background-color: rgb(var(--light-grey));
+  background-color: rgb(var(--light-grey));
 }
 
 /* Règles header */
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    width: 40%;
-    height: 80px;
+  width: 40%;
+  height: 100px;
 
-    background-color: rgb(var(--light-grey));
+  background-color: rgb(var(--light-grey));
 }
 
 .score {
@@ -39,7 +46,7 @@ header {
 
   margin: 0;
 
-  font-size: 1.4em;
+  font-size: 1em;
 }
 
 .score:first-child {
@@ -50,76 +57,91 @@ header {
   color: rgb(var(--red));
 }
 
-#player-1-score,  #player-2-score {
+#player-1-score,
+#player-2-score {
   font-weight: bold;
-  font-size: 1.8em;
+  font-size: 1.4em;
 }
 
 .logo {
-    height: 70%;
+  height: 70%;
+  z-index: 100;
 }
 
-header:hover > .logo {
-    animation: titre-anim 3.2s ease-in-out;
+header:hover>.logo {
+  animation: titre-anim 3.2s ease-in-out;
 }
 
 @keyframes titre-anim {
-    0% {
-        scale: 1;
-    }
-    10% {
-        scale: 1.6;
-        transform: rotateX(360deg);
-    }
-    19% {
-        scale: 1.6;
-        transform: rotateX(360deg);
-    }
-    28% {
-        scale: 1;
-        transform: rotateX(0deg);
-    }
-    34% {
-      transform: translateX(20vw);
-      scale: 1.4;
-    }
-    40% {
-      transform: translateX(20vw);
-      scale: 1.4;
-    }
-    48% {
-      transform: translateX(0);
-      scale: 1;
-    }
-    56% {
-      transform: translateX(-20vw);
-      scale: 1.4;
-    }
-    62% {
-      transform: translateX(-20vw);
-      scale: 1.4;
-    }
-    68%{
-      scale: 1;
-      transform: translateX(0);
-      transform: rotateZ(-720deg);
-    }
-    76% {
-      transform: rotateZ(0);
-      transform: translateY(60px);
-    }
-    82%{
-      scale: 2;
-      transform: translateY(60px);
-    }
-    90%{
-      scale: 2;
-      transform: translateY(60px);
-    }
-    100% {
-      scale: 1;
-      transform: translateY(0);
-    }
+  0% {
+    scale: 1;
+  }
+
+  10% {
+    scale: 1.6;
+    transform: rotateX(360deg);
+  }
+
+  19% {
+    scale: 1.6;
+    transform: rotateX(360deg);
+  }
+
+  28% {
+    scale: 1;
+    transform: rotateX(0deg);
+  }
+
+  34% {
+    transform: translateX(20vw);
+    scale: 1.4;
+  }
+
+  40% {
+    transform: translateX(20vw);
+    scale: 1.4;
+  }
+
+  48% {
+    transform: translateX(0);
+    scale: 1;
+  }
+
+  56% {
+    transform: translateX(-20vw);
+    scale: 1.4;
+  }
+
+  62% {
+    transform: translateX(-20vw);
+    scale: 1.4;
+  }
+
+  68% {
+    scale: 1;
+    transform: translateX(0);
+    transform: rotateZ(-720deg);
+  }
+
+  76% {
+    transform: rotateZ(0);
+    transform: translateY(60px);
+  }
+
+  82% {
+    scale: 2;
+    transform: translateY(60px);
+  }
+
+  90% {
+    scale: 2;
+    transform: translateY(60px);
+  }
+
+  100% {
+    scale: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Règles main */
@@ -139,10 +161,12 @@ main {
     opacity: 0.01;
     transform: scale(0.6);
   }
+
   90% {
     opacity: 0.9;
     transform: scale(1.05);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -150,37 +174,104 @@ main {
 }
 
 @keyframes neon {
-    from {
-      box-shadow: 0 0 10px rgba(var(--red), 0.5);
-    }
-    to {
-      box-shadow: 0 0 10px rgba(var(--blue), 0.5);
-    }
+  from {
+    box-shadow: 0 0 10px rgba(var(--red), 0.5);
   }
 
-#game-canvas {
-  animation: fondu .6s ease-in-out, neon 2.5s ease-in-out infinite alternate;
+  to {
+    box-shadow: 0 0 10px rgba(var(--blue), 0.5);
+  }
+}
 
-  border-radius: 4px;  
+/* Règles game */
 
+.game {
+  position: relative;
+  
+  display: flex;
+  justify-content: center;
+  
+  animation: fondu .6s ease-in-out;
+}
+
+#game-canvas {  
+  border-radius: 4px;
+  
+  
   background-color: rgb(var(--light-grey));
+  animation: fondu .6s ease-in-out, neon 2.5s ease-in-out infinite alternate;
+}
+
+#mainMenu, #pauseMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+#pauseMenu {
+  display: none;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+button {
+  cursor: pointer;
+  
+  width: 100%;
+  padding: 12px 24px;
+
+  background-color: rgb(var(--blue));
+  color: rgb(var(--dark-grey));
+
+  font-family: 'Tequilla Sunrise';
+  font-size: 26px;
+  text-align: center;
+
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(var(--light-grey), 0.3);
+
+  transition: transform .3s;
+}
+
+button:hover {
+  transform: scale(1.1, 1.05) rotate(3deg) skew(6deg);
+}
+
+#leaveButton {
+  background-color: rgb(var(--red));
 }
 
 /* Règles footer */
 
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    width: 100%;
-    padding-bottom: 20px;
+  width: 100%;
+  padding-bottom: 20px;
 
-    background-color: rgb(var(--light-grey));
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+  background-color: rgb(var(--light-grey));
 }
 
 small {
-    margin-top: 20px;
+  margin-top: 20px;
 
-    color: #777777;
+  color: #777777;
 }

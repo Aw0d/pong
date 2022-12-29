@@ -15,8 +15,23 @@
     </header>
 
     <main>
+        
         <div class="game">
-            <canvas id="game-canvas" width="1200" height="600"></canvas>
+            <canvas id="game-canvas" width="1000" height="600"></canvas>
+            <div id="mainMenu">
+                <div class="buttonContainer">
+                    <button id="startButton">Jouer</button>
+                </div>
+            </div>
+
+            <div id="pauseMenu">
+                <div class="buttonContainer">
+                    <button id="continueButton">Continuer</button>
+                    <button id="restartButton">Recommencer</button>
+                    <button id="leaveButton">Quitter</button>
+                </div>
+            </div>
+
             <script src="./pong.js"></script>
         </div>
     </main>

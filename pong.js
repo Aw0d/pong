@@ -270,52 +270,47 @@ let paddle2;
 
 let score;
 
-// Constructions des boutons
-// -------------------------
-
-// Menu principal
-let mainMenuButtons = [
-  new Button(canvas.width / 2 - 100, 200, 200, 80, 5, colors.blue, colors.text, '26px', 'Jouer', (() => {
-    resetGame();
-    state = 1;
-  }))
-];
-
-// Menu pause
-let pauseMenuButtons = [
-  new Button(canvas.width / 2 - 100, 200, 200, 80, 5, colors.blue, colors.text, '26px', 'Jouer', (() => state = 1)),
-  new Button(canvas.width / 2 - 100, 300, 200, 80, 5, colors.blue, colors.text, '26px', 'Recommencer', (() => {
-    resetGame();
-    state = 1;
-  })),
-  new Button(canvas.width / 2 - 100, 400, 200, 80, 5, colors.red, colors.text, '26px', 'Quitter', (() => state = 0))
-];
-
 // Fonctions
 // =========
 
 // Menus
 // -----
 
-function mainMenu() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  mainMenuButtons.forEach(button => {
-    button.draw(ctx);
-  });
+function showMainMenu() {
+  document.getElementById("mainMenu").style.display = "flex";
 }
 
-function pauseMenu() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function hideMainMenu() {
+  document.getElementById("mainMenu").style.display = "none";
+}
 
-  drawGame();
-  pauseMenuButtons.forEach(button => {
-    button.draw(ctx);
-  });
+function showPauseMenu() {
+  document.getElementById("pauseMenu").style.display = "flex";
+}
+
+function hidePauseMenu() {
+  document.getElementById("pauseMenu").style.display = "none";
+
 }
 
 // Game
 // ----
+
+function startGame() {
+  resetGame();
+  state = 1;
+
+  hideMainMenu();
+  hidePauseMenu();
+}
+
+function leaveGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  state = 0;
+
+  hidePauseMenu();
+  showMainMenu();
+}
 
 function drawGame() {
   ball.draw(ctx);
@@ -349,15 +344,16 @@ function gameLoop() {
 
 function mainLoop() {
   if (state === 0) { // Menu du jeu
-    mainMenu();
+
   } else if (state === 1) { // Jeu
     gameLoop();
 
     if ('Escape' in keysDown) { // Si on doit mettre pause
       state = 2;
+      showPauseMenu();
     }
   } else if (state === 2) { // Menu pause en Jeu
-    pauseMenu();
+    drawGame();
   } else if (state === 3) { // Settings
     // Draw menu settings
   }
@@ -380,24 +376,11 @@ document.addEventListener('keyup', (e) => {
 });
 
 // Boutons
-canvas.addEventListener('click', (event) => {
-  // récupère les coordonnées de la souris sur le canvas
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
+document.getElementById("startButton").addEventListener("click", () => startGame());
 
-  // vérifie si la position de la souris est située à l'intérieur du bouton
-  if (state == 0) { // Main menu
-    mainMenuButtons.forEach(button => {
-      button.checkClick(mouseX, mouseY);
-    });
-  } else if (state == 2) { // Pause menu
-    pauseMenuButtons.forEach(button => {
-      button.checkClick(mouseX, mouseY);
-    });
-  }
-
-});
+document.getElementById("continueButton").addEventListener("click", () => {state = 1; hidePauseMenu()});
+document.getElementById("restartButton").addEventListener("click", () => startGame());
+document.getElementById("leaveButton").addEventListener("click", () => leaveGame());
 
 // Lancement du programme
 // ======================
