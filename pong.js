@@ -142,64 +142,13 @@ class Score {
 
     this.player1Score = document.getElementById('player-1-score');
     this.player2Score = document.getElementById('player-2-score');
+
+    this.update();
   }
 
   update() {
     this.player1Score.textContent = this.joueur1;
     this.player2Score.textContent = this.joueur2;
-  }
-}
-
-class Button {
-  constructor(x, y, width, height, borderRadius, bgCouleur, txtCouleur, txtSize, content, callback) {
-    this.x = x;
-    this.y = y;
-
-    this.width = width;
-    this.height = height;
-    this.borderRadius = borderRadius;
-
-    this.bgCouleur = bgCouleur;
-    this.txtCouleur = txtCouleur;
-    this.txtSize = txtSize;
-    this.font = 'sans-serif';
-
-    this.content = content;
-
-    this.callback = callback;
-  }
-
-  checkClick(mouseX, mouseY) {
-    if (mouseX >= this.x && mouseX <= this.x + this.width &&
-      mouseY >= this.y && mouseY <= this.y + this.height) {
-      this.callback();
-    }
-  }
-
-  draw(ctx) {
-    // Bouton
-    ctx.fillStyle = this.bgCouleur;
-
-    // Dessin des contours du bouton
-    ctx.beginPath();
-    // dessine un arc de cercle pour le coin supérieur gauche du bouton
-    ctx.arc(this.x + this.borderRadius, this.y + this.borderRadius, this.borderRadius, Math.PI, Math.PI * -0.5);
-    // dessine un arc de cercle pour le coin supérieur droit du bouton
-    ctx.arc(this.x + this.width - this.borderRadius, this.y + this.borderRadius, this.borderRadius, Math.PI * -0.5, 0);
-    // dessine un arc de cercle pour le coin inférieur droit du bouton
-    ctx.arc(this.x + this.width - this.borderRadius, this.y + this.height - this.borderRadius, this.borderRadius, 0, Math.PI * 0.5);
-    // dessine un arc de cercle pour le coin inférieur gauche du bouton
-    ctx.arc(this.x + this.borderRadius, this.y + this.height - this.borderRadius, this.borderRadius, Math.PI * 0.5, Math.PI);
-    ctx.closePath();
-
-    ctx.fill(); // remplit le bouton avec la couleur de remplissage
-
-    // Texte
-    ctx.fillStyle = this.txtCouleur;
-    ctx.font = this.txtSize + ' ' + this.font;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(this.content, this.x + this.width / 2, this.y + this.height / 2);
   }
 }
 
@@ -273,26 +222,6 @@ let score;
 // Fonctions
 // =========
 
-// Menus
-// -----
-
-function showMainMenu() {
-  document.getElementById("mainMenu").style.display = "flex";
-}
-
-function hideMainMenu() {
-  document.getElementById("mainMenu").style.display = "none";
-}
-
-function showPauseMenu() {
-  document.getElementById("pauseMenu").style.display = "flex";
-}
-
-function hidePauseMenu() {
-  document.getElementById("pauseMenu").style.display = "none";
-
-}
-
 // Game
 // ----
 
@@ -300,16 +229,16 @@ function startGame() {
   resetGame();
   state = 1;
 
-  hideMainMenu();
-  hidePauseMenu();
+  document.getElementById("mainMenu").style.display = "none";
+  document.getElementById("pauseMenu").style.display = "none";;
 }
 
 function leaveGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   state = 0;
 
-  hidePauseMenu();
-  showMainMenu();
+  document.getElementById("pauseMenu").style.display = "none";
+  document.getElementById("mainMenu").style.display = "flex";
 }
 
 function drawGame() {
@@ -350,7 +279,7 @@ function mainLoop() {
 
     if ('Escape' in keysDown) { // Si on doit mettre pause
       state = 2;
-      showPauseMenu();
+      document.getElementById("pauseMenu").style.display = "flex";
     }
   } else if (state === 2) { // Menu pause en Jeu
     drawGame();
@@ -378,7 +307,7 @@ document.addEventListener('keyup', (e) => {
 // Boutons
 document.getElementById("startButton").addEventListener("click", () => startGame());
 
-document.getElementById("continueButton").addEventListener("click", () => {state = 1; hidePauseMenu()});
+document.getElementById("continueButton").addEventListener("click", () => {state = 1; document.getElementById("pauseMenu").style.display = "none";});
 document.getElementById("restartButton").addEventListener("click", () => startGame());
 document.getElementById("leaveButton").addEventListener("click", () => leaveGame());
 
