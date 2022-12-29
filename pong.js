@@ -79,10 +79,12 @@ class Ball {
 
     // MAJ score
     if (this.x - this.radius < 0) {
-      score.joueur2++;
+      score.joueur2 ++;
+      score.update();
       this.resetBall(canvas);
     } else if (this.x + this.radius > canvas.width) {
-      score.joueur1++;
+      score.joueur1 ++;
+      score.update();
       this.resetBall(canvas);
     }
   }
@@ -137,14 +139,14 @@ class Score {
 
     this.couleurJ1 = couleurJ1;
     this.couleurJ2 = couleurJ2;
+
+    this.player1Score = document.getElementById('player-1-score');
+    this.player2Score = document.getElementById('player-2-score');
   }
 
-  draw(canvas, ctx) {
-    ctx.font = '48px Arial';
-    ctx.fillStyle = this.couleurJ1;
-    ctx.fillText(this.joueur1, canvas.width / 4, 50);
-    ctx.fillStyle = this.couleurJ2;
-    ctx.fillText(this.joueur2, (canvas.width / 4) * 3, 50);
+  update() {
+    this.player1Score.textContent = this.joueur1;
+    this.player2Score.textContent = this.joueur2;
   }
 }
 
@@ -319,8 +321,6 @@ function drawGame() {
   ball.draw(ctx);
   paddle1.draw(ctx);
   paddle2.draw(ctx);
-
-  score.draw(canvas, ctx);
 }
 
 function resetGame() {

@@ -7,13 +7,18 @@
 </head>
 <body>
     <header>
+        <p class="score">Player 1<br><span id="player-1-score">0</span></p>
+
         <img class="logo" src="./img/pong_logo.png">
+
+        <p class="score">Player 2<br><span id="player-2-score">0</span></p>
     </header>
 
     <main>
-        <p>Welcome to the <img class="logo_txt" src="./img/pong_logo.png"> Game !<br>Have fun !</p>
-        <canvas id="game-canvas" width="1200" height="600"></canvas>
-        <script src="./pong.js"></script>
+        <div class="game">
+            <canvas id="game-canvas" width="1200" height="600"></canvas>
+            <script src="./pong.js"></script>
+        </div>
     </main>
 
     <footer>
