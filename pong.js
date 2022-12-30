@@ -8,16 +8,16 @@ class Ball {
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
 
-    this.speedX = settings.speedX;
-    this.speedY = settings.speedY;
+    this.speedX = settings.speed;
+    this.speedY = settings.speed;
 
-    this.maxAngle = settings.maxAngle;
     this.coefSpeed = settings.coefSpeed;
     this.maxSpeed = settings.maxSpeed;
+    this.maxAngle = settings.maxAngle;
 
     this.couleur = settings.couleur;
 
-    this.settings = settings;
+    this.initialSpeed = settings.speed;
   }
 
   move(canvas) {
@@ -33,8 +33,8 @@ class Ball {
   resetBall(canvas) {
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
-    this.speedX = this.settings.speedX * (Math.random() > 0.5 ? 1 : -1);
-    this.speedY = this.settings.speedY * (Math.random() > 0.5 ? 1 : -1);
+    this.speedX = this.initialSpeed * (Math.random() > 0.5 ? 1 : -1);
+    this.speedY = this.initialSpeed * (Math.random() > 0.5 ? 1 : -1);
   }
 
   collisionDetection(paddle1, paddle2, score, canvas) {
@@ -79,11 +79,11 @@ class Ball {
 
     // MAJ score
     if (this.x - this.radius < 0) {
-      score.joueur2 ++;
+      score.player2 ++;
       score.update();
       this.resetBall(canvas);
     } else if (this.x + this.radius > canvas.width) {
-      score.joueur1 ++;
+      score.player1 ++;
       score.update();
       this.resetBall(canvas);
     }
@@ -134,8 +134,8 @@ class Paddle {
 
 class Score {
   constructor(couleurJ1, couleurJ2) {
-    this.joueur1 = 0;
-    this.joueur2 = 0;
+    this.player1 = 0;
+    this.player2 = 0;
 
     this.couleurJ1 = couleurJ1;
     this.couleurJ2 = couleurJ2;
@@ -147,8 +147,8 @@ class Score {
   }
 
   update() {
-    this.player1Score.textContent = this.joueur1;
-    this.player2Score.textContent = this.joueur2;
+    this.player1Score.textContent = this.player1;
+    this.player2Score.textContent = this.player2;
   }
 }
 
@@ -167,14 +167,13 @@ const colors = {
 const settings = {
   ball: {
     radius: 10,
-    speedX: 2,
-    speedY: 2,
+    speed: 2,
     maxAngle: 140,
     coefSpeed: 1.1,
     maxSpeed: 8,
     couleur: "#ababab"
   },
-  joueur1: {
+  player1: {
     height: 120,
     width: 10,
     speed: 8,
@@ -182,7 +181,7 @@ const settings = {
     upKey: "KeyW",
     downKey: "KeyS"
   },
-  joueur2: {
+  player2: {
     height: 120,
     width: 10,
     speed: 8,
@@ -250,10 +249,10 @@ function drawGame() {
 function resetGame() {
   ball = new Ball(settings.ball, canvas);
 
-  paddle1 = new Paddle(settings.joueur1, 0, canvas);
-  paddle2 = new Paddle(settings.joueur2, canvas.width - settings.joueur2.width, canvas);
+  paddle1 = new Paddle(settings.player1, 0, canvas);
+  paddle2 = new Paddle(settings.player2, canvas.width - settings.player2.width, canvas);
 
-  score = new Score(settings.joueur1.couleur, settings.joueur2.couleur);
+  score = new Score(settings.player1.couleur, settings.player2.couleur);
 }
 
 function gameLoop() {
@@ -276,11 +275,6 @@ function mainLoop() {
 
   } else if (state === 1) { // Jeu
     gameLoop();
-
-    if ('Escape' in keysDown) { // Si on doit mettre pause
-      state = 2;
-      document.getElementById("pauseMenu").style.display = "flex";
-    }
   } else if (state === 2) { // Menu pause en Jeu
     drawGame();
   } else if (state === 3) { // Settings
@@ -298,6 +292,17 @@ document.addEventListener('keydown', (e) => {
   // Empêche le défilement de la page lorsque l'on appuie sur les flèches
   if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
     e.preventDefault();
+  }
+
+  // Mettre pause si on appui sur Echap et qu'on est en jeu
+  if (e.code === "Escape") {
+    if (state === 1) {
+      state = 2;
+      document.getElementById("pauseMenu").style.display = "flex";
+    } else if (state === 2) {
+      state = 1;
+      document.getElementById("pauseMenu").style.display = "none";
+    }
   }
 });
 document.addEventListener('keyup', (e) => {
