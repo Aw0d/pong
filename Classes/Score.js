@@ -17,5 +17,7 @@ class Score {
     reset() {
         this.player1 = 0;
         this.player2 = 0;
+
+        this.update();
     }
 }
