@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Pong</title>
     <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
     <header>
         <p class="score">Player 1<br><span id="player-1-score">0</span></p>
@@ -15,21 +17,54 @@
     </header>
 
     <main>
-        
+
         <div class="game">
             <canvas id="game-canvas" width="1000" height="600"></canvas>
-            <div id="mainMenu">
+            <div id="mainMenu" class="menu">
                 <div class="buttonContainer">
                     <button id="startButton">Jouer</button>
+                    <button id="settingsButton">Settings</button>
                 </div>
             </div>
 
-            <div id="pauseMenu">
+            <div id="pauseMenu" class="menu">
                 <div class="buttonContainer">
                     <button id="continueButton">Continuer</button>
                     <button id="restartButton">Recommencer</button>
                     <button id="leaveButton">Quitter</button>
                 </div>
+            </div>
+
+            <div id="settingsMenu" class="menu">
+                <form>
+                    <fieldset class="ballSettings">
+                        <legend>Ball Settings</legend>
+                        <p>
+                            <label>Ball radius:</label>
+                            <input type="number" name="ballRadius" min="1" max="10">
+                        </p>
+    
+                        <p>
+                            <label>Ball speed:</label>
+                            <input type="number" name="ballSpeed" min="1" max="10">
+                        </p>
+    
+                        <p>
+                            <label>Ball max angle:</label>
+                            <input type="number" name="ballMaxAngle" min="1" max="90">
+                        </p>
+    
+                        <p>
+                            <label>Ball coef speed:</label>
+                            <input type="number" name="ballCoefSpeed" min="0" max="2">
+                        </p>
+    
+                        <p>
+                            <label>Ball max speed:</label>
+                            <input type="number" name="ballMaxSpeed" min="1" max="20">
+                        </p>
+                    </fieldset>
+                </form>
             </div>
 
             <script src="./pong.js"></script>
@@ -41,4 +76,5 @@
     </footer>
 
 </body>
+
 </html>

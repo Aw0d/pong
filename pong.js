@@ -311,6 +311,7 @@ document.addEventListener('keyup', (e) => {
 
 // Boutons
 document.getElementById("startButton").addEventListener("click", () => startGame());
+document.getElementById("settingsButton").addEventListener("click", () => {state = 3; document.getElementById("mainMenu").style.display = "none"; document.getElementById("settingsMenu").style.display = "flex"})
 
 document.getElementById("continueButton").addEventListener("click", () => {state = 1; document.getElementById("pauseMenu").style.display = "none";});
 document.getElementById("restartButton").addEventListener("click", () => startGame());

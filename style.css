@@ -202,7 +202,7 @@ main {
   animation: fondu .6s ease-in-out, neon 2.5s ease-in-out infinite alternate;
 }
 
-#mainMenu, #pauseMenu {
+.menu {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -215,7 +215,7 @@ main {
   height: 100%;
 }
 
-#pauseMenu {
+#pauseMenu, #settingsMenu {
   display: none;
 }
 
@@ -246,13 +246,16 @@ button {
 
   transition: transform .3s;
 }
-
 button:hover {
   transform: scale(1.1, 1.05) rotate(3deg) skew(6deg);
 }
 
 #leaveButton {
   background-color: rgb(var(--red));
+}
+
+#settingsMenu {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* Règles footer */
