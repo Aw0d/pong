@@ -30,7 +30,7 @@ const colors = {
 
 const settings = {
     ballRadius: 10,
-    ballSpeed: 2,
+    ballSpeed: 3,
     ballCoefSpeed: 1.1,
     ballMaxSpeed: 8,
     ballMaxAngle: 140,
