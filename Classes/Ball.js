@@ -5,8 +5,9 @@ class Ball {
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
 
-        this.speedX = speed;
-        this.speedY = speed;
+        this.speed = speed;
+        this.speedX = Math.sin(45 * (Math.PI / 180)) * speed;
+        this.speedY = Math.sin(45 * (Math.PI / 180)) * speed;
         this.initialSpeed = speed;
 
         this.coefSpeed = coefSpeed;
@@ -25,13 +26,15 @@ class Ball {
         if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
             this.speedY = -this.speedY;
         }
+        console.log('speed: ' + this.speed + '\nspeedX: ' + this.speedX + '\nspeedY: ' + this.speedY);
     }
 
     reset(canvas) {
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
-        this.speedX = this.initialSpeed * (Math.random() > 0.5 ? 1 : -1);
-        this.speedY = this.initialSpeed * (Math.random() > 0.5 ? 1 : -1);
+        this.speed = this.initialSpeed;
+        this.speedX = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
+        this.speedY = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
     }
 
     collisionDetection(paddle1, paddle2, score, canvas) {
@@ -42,13 +45,9 @@ class Ball {
         if (this.x - this.radius < paddle1.width) {
             ballPaddleDiff = this.y - (paddle1.y + paddle1.height / 2);
             angle = 90 - (ballPaddleDiff / (paddle1.height / 2)) * (90 - (180 - this.maxAngle));
-
-            this.speedY = (1 / Math.tan((Math.PI / 180) * angle)) * Math.abs(this.speedX);
         } else if (this.x + this.radius > canvas.width - paddle2.width) {
             ballPaddleDiff = this.y - (paddle2.y + paddle2.height / 2);
             angle = 90 + (ballPaddleDiff / (paddle2.height / 2)) * (90 - (180 - this.maxAngle));
-
-            this.speedY = -(1 / Math.tan((Math.PI / 180) * angle)) * Math.abs(this.speedX);
         }
 
         // Rebondir sur les paddles
@@ -56,10 +55,14 @@ class Ball {
         if (this.x - this.radius < paddle1.x + paddle1.width && this.y >= paddle1.y && this.y <= paddle1.y + paddle1.height) {
             this.x = paddle1.x + paddle1.width + this.radius; // On replace la balle sur la paddle
 
-            if (this.speedX > -this.maxSpeed && this.speedX < this.maxSpeed) {
-                this.speedX = -this.speedX * this.coefSpeed;
+            if (this.speed*this.coefSpeed < this.maxSpeed) { // Si la vitesse est inférieure à la vitesse Max
+                this.speed = this.speed * this.coefSpeed;
+                this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
+                this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
             } else {
-                this.speedX = -this.speedX;
+                this.speed = this.maxSpeed;
+                this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
+                this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
             }
         }
 
@@ -67,10 +70,14 @@ class Ball {
         if (this.x + this.radius > paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y + paddle2.height) {
             this.x = paddle2.x - this.radius; // On replace la balle sur la paddle
 
-            if (this.speedX > -this.maxSpeed && this.speedX < this.maxSpeed) {
-                this.speedX = -this.speedX * this.coefSpeed;
+            if (this.speed*this.coefSpeed < this.maxSpeed) { // Si la vitesse est inférieure à la vitesse Max
+                this.speed = this.speed * this.coefSpeed;
+                this.speedX = - Math.sin(angle * (Math.PI / 180)) * this.speed;
+                this.speedY = - Math.cos(angle * (Math.PI / 180)) * this.speed;
             } else {
-                this.speedX = -this.speedX;
+                this.speed = this.maxSpeed;
+                this.speedX = - Math.sin(angle * (Math.PI / 180)) * this.speed;
+                this.speedY = - Math.cos(angle * (Math.PI / 180)) * this.speed;
             }
         }
 
@@ -97,8 +104,9 @@ class Ball {
     updateSettings(radius, speed, coefSpeed, maxSpeed, maxAngle, color) {
         this.radius = radius;
 
-        this.speedX = speed;
-        this.speedY = speed;
+        this.speed = speed;
+        this.speedX = Math.sin(45 * (Math.PI / 180)) * speed;
+        this.speedY = Math.cos(45 * (Math.PI / 180)) * speed;
         this.initialSpeed = speed;
 
         this.coefSpeed = coefSpeed;
