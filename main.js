@@ -33,19 +33,19 @@ const settings = {
     ballMaxAngle: 140,
     ballColor: "#ababab",
 
-    p1Height: 120,
-    p1Width: 10,
-    p1Speed: 8,
-    p1Color: colors.player1,
-    p1UpKey: "KeyW",
-    p1DownKey: "KeyS",
+    paddle1Height: 120,
+    paddle1Width: 10,
+    paddle1Speed: 8,
+    paddle1Color: colors.player1,
+    paddle1UpKey: "KeyW",
+    paddle1DownKey: "KeyS",
 
-    p2Height: 120,
-    p2Width: 10,
-    p2Speed: 8,
-    p2Color: colors.player2,
-    p2UpKey: "ArrowUp",
-    p2DownKey: "ArrowDown"
+    paddle2Height: 120,
+    paddle2Width: 10,
+    paddle2Speed: 8,
+    paddle2Color: colors.player2,
+    paddle2UpKey: "ArrowUp",
+    paddle2DownKey: "ArrowDown"
 }
 
 // Construction des classes
@@ -53,8 +53,8 @@ const settings = {
 
 const ball = new Ball(settings.ballRadius, settings.ballSpeed, settings.ballCoefSpeed, settings.ballMaxSpeed, settings.ballMaxAngle, settings.ballColor, canvas);
 
-const paddle1 = new Paddle(settings.p1Height, settings.p1Width, 0, settings.p1Speed, settings.p1Color, settings.p1UpKey, settings.p1DownKey, canvas);
-const paddle2 = new Paddle(settings.p2Height, settings.p2Width, canvas.width - settings.p2Width, settings.p2Speed, settings.p2Color, settings.p2UpKey, settings.p2DownKey, canvas);
+const paddle1 = new Paddle(settings.paddle1Height, settings.paddle1Width, 0, settings.paddle1Speed, settings.paddle1Color, settings.paddle1UpKey, settings.paddle1DownKey, canvas);
+const paddle2 = new Paddle(settings.paddle2Height, settings.paddle2Width, canvas.width - settings.paddle2Width, settings.paddle2Speed, settings.paddle2Color, settings.paddle2UpKey, settings.paddle2DownKey, canvas);
 
 const score = new Score();
 
@@ -156,14 +156,14 @@ function updateSettings(e) {
         }
 
         if (SameSettingsPaddlesCheckbox.checked) {
-            settings.p2Height = settings.p1Height;
-            settings.p2Speed = settings.p1Speed;
+            settings.paddle2Height = settings.paddle1Height;
+            settings.paddle2Speed = settings.paddle1Speed;
         }
 
         ball.updateSettings(settings.ballRadius, settings.ballSpeed, settings.ballCoefSpeed, settings.ballMaxSpeed, settings.ballMaxAngle, settings.ballColor);
 
-        paddle1.updateSettings(settings.p1Height, settings.p1Width, settings.p1Speed, settings.p1Color, settings.p1UpKey, settings.p1DownKey);
-        paddle2.updateSettings(settings.p2Height, settings.p2Width, settings.p2Speed, settings.p2Color, settings.p2UpKey, settings.p2DownKey);
+        paddle1.updateSettings(settings.paddle1Height, settings.paddle1Width, settings.paddle1Speed, settings.paddle1Color, settings.paddle1UpKey, settings.paddle1DownKey);
+        paddle2.updateSettings(settings.paddle2Height, settings.paddle2Width, settings.paddle2Speed, settings.paddle2Color, settings.paddle2UpKey, settings.paddle2DownKey);
     } else { // Si la valeur dans input est invalide
         e.target.value = settings[e.target.id]
     }
@@ -171,16 +171,16 @@ function updateSettings(e) {
 
 
 function sameSettingsPaddles() {
-    document.getElementById('p2Settings').style.display = 'none'; // On rend invisible les settings pour la paddle 2
+    document.getElementById('paddle2Settings').style.display = 'none'; // On rend invisible les settings pour la paddle 2
     document.getElementById('paddlesSettingsLegend').textContent = 's'; // On écrit 'Paddles' dans le titre des settings
 
     // On met à jour les settings de la Paddle 2 pour qu'ils correspondent aux settings de la Paddle 1
-    settings.p2Height = settings.p1Height;
-    settings.p2Speed = settings.p1Speed;
-    paddle2.updateSettings(settings.p2Height, settings.p2Width, settings.p2Speed, settings.p2Color, settings.p2UpKey, settings.p2DownKey);
+    settings.paddle2Height = settings.paddle1Height;
+    settings.paddle2Speed = settings.paddle1Speed;
+    paddle2.updateSettings(settings.paddle2Height, settings.paddle2Width, settings.paddle2Speed, settings.paddle2Color, settings.paddle2UpKey, settings.paddle2DownKey);
 }
 function differentSettingsPaddles() {
-    document.getElementById('p2Settings').style.display = 'flex'; // On affiche les settings pour la paddle 2
+    document.getElementById('paddle2Settings').style.display = 'flex'; // On affiche les settings pour la paddle 2
     document.getElementById('paddlesSettingsLegend').textContent = ' 1'; // On écrit 'Paddle 1' dans le titre des settings de la paddle 1
 
     // On met à jour l'affichage des inputs
