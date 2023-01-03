@@ -13,8 +13,8 @@ class Bonus {
 
     collisionDetection(ball) {
         let distance = Math.sqrt(Math.pow(this.x+(this.radius/2) - ball.x+ball.radius, 2) + Math.pow(this.y+(this.radius/2) - ball.y+ball.radius, 2));
-        console.log('Distance: ' + Math.round(distance));
         return distance < this.radius + ball.radius;
+        // A faire : il faut trouver la distance minimale entre la balle et le bonus sur toute la trajectoires de la balle
     }
 
     draw(ctx) {

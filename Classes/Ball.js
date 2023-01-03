@@ -36,7 +36,8 @@ class Ball {
         this.speedY = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
     }
 
-    collisionDetection(paddle1, paddle2, score, canvas) {
+    paddleCollisionDetection(paddle1, paddle2, canvas) {
+        let collision = false;
         const round = (num) => {
             return Math.round(num * 10) / 10;
         }
@@ -57,14 +58,20 @@ class Ball {
 
             this.x = paddle1.x + paddle1.width + this.radius; // On remet la balle sur la paddle
 
+            collision = true;
         } else if (this.x + this.radius > canvas.width - paddle2.width && (this.y + this.radius > paddle2.y && this.y + this.radius < paddle2.y + paddle2.height)) { // Si la balle touche la paddle 2
             const ballPaddleDiff = round(this.y-this.radius - (paddle2.y + paddle2.height / 2));
             const angle = round(90 + (ballPaddleDiff / (paddle2.height / 2 + this.radius)) * (90 - (180 - this.maxAngle)));
             bounce(angle);
 
             this.x = paddle2.x - this.radius; // On remet la balle sur la paddle
+            collision = true;
         }
 
+        return collision;
+    }
+
+    borderCollisionDetection(score, canvas) {
         // MAJ score
         if (this.x - this.radius < 0) {
             score.player2++;

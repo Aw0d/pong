@@ -11,6 +11,8 @@ let keysDown = {};
 // Entier indiquant l'état
 let state = 0;
 
+let numBounces = 0;
+
 // Array des input qui gère les settings
 const inputs = document.getElementById('settingsMenu').querySelectorAll('input:not([type="checkbox"])');
 
@@ -228,7 +230,15 @@ function gameLoop() {
     paddle1.move(keysDown, canvas);
     paddle2.move(keysDown, canvas);
 
-    ball.collisionDetection(paddle1, paddle2, score, canvas);
+    if (ball.paddleCollisionDetection(paddle1, paddle2, canvas)) {
+        numBounces ++;
+
+        if (bonusArr.length < settings.nbBonus) {
+            bonusArr.push(new Bonus(canvas));
+        }
+    }
+    
+    ball.borderCollisionDetection(score, canvas);
 
     bonusArr.forEach(bonus => {
         if (bonus.collisionDetection(ball)){
