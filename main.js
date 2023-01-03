@@ -45,7 +45,9 @@ const settings = {
     paddle2Speed: 8,
     paddle2Color: colors.player2,
     paddle2UpKey: "ArrowUp",
-    paddle2DownKey: "ArrowDown"
+    paddle2DownKey: "ArrowDown",
+
+    nbBonus: 1
 }
 
 // Construction des classes
@@ -57,6 +59,8 @@ const paddle1 = new Paddle(settings.paddle1Height, settings.paddle1Width, 0, set
 const paddle2 = new Paddle(settings.paddle2Height, settings.paddle2Width, canvas.width - settings.paddle2Width, settings.paddle2Speed, settings.paddle2Color, settings.paddle2UpKey, settings.paddle2DownKey, canvas);
 
 const score = new Score();
+
+const bonusArr = [];
 
 // Fonctions
 // =========
@@ -213,6 +217,8 @@ function drawGame() {
     ball.draw(ctx);
     paddle1.draw(ctx);
     paddle2.draw(ctx);
+
+    bonusArr.forEach(bonus => {bonus.draw(ctx)});
 }
 
 function gameLoop() {
@@ -223,6 +229,12 @@ function gameLoop() {
     paddle2.move(keysDown, canvas);
 
     ball.collisionDetection(paddle1, paddle2, score, canvas);
+
+    bonusArr.forEach(bonus => {
+        if (bonus.collisionDetection(ball)){
+            bonusArr.splice(bonus, 1);
+        }
+    });
 
     drawGame();
 }
