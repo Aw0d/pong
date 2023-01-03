@@ -21,11 +21,8 @@ const SameSettingsPaddlesCheckbox = document.getElementById('sameSettingsBothPad
 // --------
 
 const colors = {
-    blue: '#3DC7AD',
-    red: '#F3522C',
-    darkGrey: '#222222',
-    lightGrey: '#2E2E2E',
-    text: '#e3e3e3'
+    player1: '#0DB387',
+    player2: '#D6A11A',
 }
 
 const settings = {
@@ -39,14 +36,14 @@ const settings = {
     p1Height: 120,
     p1Width: 10,
     p1Speed: 8,
-    p1Color: colors.blue,
+    p1Color: colors.player1,
     p1UpKey: "KeyW",
     p1DownKey: "KeyS",
 
     p2Height: 120,
     p2Width: 10,
     p2Speed: 8,
-    p2Color: colors.red,
+    p2Color: colors.player2,
     p2UpKey: "ArrowUp",
     p2DownKey: "ArrowDown"
 }

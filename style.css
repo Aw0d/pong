@@ -13,10 +13,11 @@
 }
 
 :root {
-    --red: 243, 82, 44;
-    --blue: 61, 199, 173;
-    --dark-grey: 34, 34, 34;
-    --light-grey: 46, 46, 46;
+    --player1: 13, 179, 135;
+    --player2: 214, 161, 26;
+
+    --dark-blue: 1, 2, 34;
+    --light-blue: 41, 62, 100;
     --text: 227, 227, 227;
 }
 
@@ -31,7 +32,7 @@ body {
     color: rgb(var(--text));
     font-size: 26px;
 
-    background-color: rgb(var(--dark-grey));
+    background-color: rgb(var(--dark-blue));
 }
 
 /* Règles header */
@@ -44,7 +45,7 @@ header {
     width: 100%;
     height: 100px;
 
-    background-color: rgb(var(--light-grey), 0.3);
+    background-color: rgba(var(--light-blue), .4);
 }
 
 header div {
@@ -66,11 +67,11 @@ header div {
 }
 
 .score:first-child {
-    color: rgb(var(--blue));
+    color: rgb(var(--player1));
 }
 
 .score:last-child {
-    color: rgb(var(--red));
+    color: rgb(var(--player2));
 }
 
 #player1Score,
@@ -95,6 +96,8 @@ main {
     display: flex;
     justify-content: center;
 
+    background-image: url('./img/stars_background.jpg');
+
     width: 100%;
     padding: 80px 0;
 }
@@ -113,7 +116,7 @@ main {
 #gameCanvas {
     border-radius: 4px;
 
-    background-color: rgb(var(--light-grey));
+    background-color: rgb(var(--light-blue));
     animation: fondu .6s ease-in-out, neon 2.5s ease-in-out infinite alternate;
 }
 
@@ -144,8 +147,8 @@ button {
     width: 100%;
     padding: 12px 24px;
 
-    background-color: rgb(var(--blue));
-    color: rgb(var(--dark-grey));
+    background-color: rgb(var(--player1));
+    color: rgb(var(--dark-blue));
 
     font-family: 'Alien-Encounters-Solid-Regular';
     font-size: 1.4em;
@@ -153,7 +156,7 @@ button {
 
     border: none;
     border-radius: 5px;
-    box-shadow: 0 0 8px rgba(var(--light-grey), 0.3);
+    box-shadow: 0 0 8px rgba(var(--light-blue), 0.3);
 
     transition: transform .3s;
 }
@@ -163,7 +166,7 @@ button:hover {
 }
 
 #leaveButton {
-    background-color: rgb(var(--red));
+    background-color: rgb(var(--player2));
 }
 
 #settingsMenu {
@@ -186,8 +189,8 @@ button:hover {
 
     border-radius: 4px;
 
-    border-color: rgba(var(--red), 0.8);
-    background-color: rgb(var(--dark-grey));
+    border-color: rgba(var(--player2), 0.8);
+    background-color: rgb(var(--dark-blue));
 }
 
 .ballSettings {
@@ -222,18 +225,18 @@ button:hover {
     padding: 2px 6px;
     box-sizing: border-box;
 
-    background-color: rgba(var(--blue), 0.5);
-    color: rgb(var(--dark-grey));
+    background-color: rgba(var(--player1), 0.5);
+    color: rgb(var(--dark-blue));
 
     font-weight: bold;
 }
 #settingsMenu input:focus {
     outline: none;
 
-    background-color: rgb(var(--blue));
+    background-color: rgb(var(--player1));
 }
 #settingsMenu input:invalid {
-    background-color: rgb(var(--red));
+    background-color: rgb(var(--player2));
 }
 
 /* Enlever les flèches du input number */
@@ -254,7 +257,7 @@ button:hover {
     background-color: rgb(var(--text));
 }
 #settingsMenu input[type="checkbox"]:checked {
-    background-color: rgb(var(--blue));
+    background-color: rgb(var(--player1));
 }
 
 /* Règles footer */
@@ -267,7 +270,7 @@ footer {
     width: 100%;
     padding-bottom: 20px;
 
-    background-color: rgb(var(--light-grey));
+    background-color: rgba(var(--light-blue), .4);
 }
 
 small {
@@ -370,10 +373,10 @@ small {
 
 @keyframes neon {
     from {
-        box-shadow: 0 0 10px rgba(var(--red), 0.5);
+        box-shadow: 0 0 10px rgba(var(--player2), 0.5);
     }
 
     to {
-        box-shadow: 0 0 10px rgba(var(--blue), 0.5);
+        box-shadow: 0 0 10px rgba(var(--player1), 0.5);
     }
 }
