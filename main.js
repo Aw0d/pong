@@ -14,7 +14,7 @@ let state = 0;
 // Array des input qui gère les settings
 const inputs = document.getElementById('settingsMenu').querySelectorAll('input:not([type="checkbox"])');
 
-const SameSettingsPaddlesCheckbox = document.getElementById('sameSettingsBothPaddles');
+const useSameSettingsForBothPaddlesCheckbox = document.getElementById('sameSettingsBothPaddles');
 
 
 // Settings
@@ -72,7 +72,7 @@ function hideMenu(menu) {
 }
 
 
-function startGame() {
+function startNewGame() {
     // Cache tous les menus
     const menus = Array.from(document.getElementsByClassName('menu'));
     menus.forEach(menu => {
@@ -140,7 +140,7 @@ function setInputsDefaultValue(inputs) {
         input.value = settings[input.id];
     });
 
-    if (SameSettingsPaddlesCheckbox.checked) {
+    if (useSameSettingsForBothPaddlesCheckbox.checked) {
         sameSettingsPaddles();
     } else {
         differentSettingsPaddles();
@@ -155,7 +155,7 @@ function updateSettings(e) {
             settings[e.target.id] = e.target.value;
         }
 
-        if (SameSettingsPaddlesCheckbox.checked) {
+        if (useSameSettingsForBothPaddlesCheckbox.checked) {
             settings.paddle2Height = settings.paddle1Height;
             settings.paddle2Speed = settings.paddle1Speed;
         }
@@ -286,12 +286,12 @@ document.getElementById('sameSettingsBothPaddles').addEventListener('change', me
 // Détection des clics sur les boutons
 
 // mainMenu
-document.getElementById('startButton').addEventListener('click', startGame);
+document.getElementById('startButton').addEventListener('click', startNewGame);
 document.getElementById('settingsButton').addEventListener('click', settingsMenu);
 
 // pauseMenu
 document.getElementById('continueButton').addEventListener('click', continueGame);
-document.getElementById('restartButton').addEventListener('click', startGame);
+document.getElementById('restartButton').addEventListener('click', startNewGame);
 document.getElementById('leaveButton').addEventListener('click', mainMenu);
 
 // settingsMenu
