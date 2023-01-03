@@ -37,58 +37,45 @@ class Ball {
     }
 
     collisionDetection(paddle1, paddle2, score, canvas) {
-        // Déterminer l'angle de la balle
-        let ballPaddleDiff;
-        let angle;
-
-        if (this.x - this.radius < paddle1.width) {
-            ballPaddleDiff = this.y - (paddle1.y + paddle1.height / 2);
-            angle = Math.round(90 - (ballPaddleDiff / (paddle1.height / 2)) * (90 - (180 - this.maxAngle)));
-        } else if (this.x + this.radius > canvas.width - paddle2.width) {
-            ballPaddleDiff = this.y - (paddle2.y + paddle2.height / 2);
-            angle = Math.round(90 + (ballPaddleDiff / (paddle2.height / 2)) * (90 - (180 - this.maxAngle)));
+        const round = (num) => {
+            return Math.round(num * 10) / 10;
+        }
+        
+        const bounce = (angle) => {
+            this.speed = (this.speed * this.coefSpeed < this.maxSpeed)
+                ? -this.speed * this.coefSpeed
+                : -this.maxSpeed;
+            this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
+            this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
         }
 
-        // Rebondir sur les paddles
-        // Paddle 1
-        if (this.x - this.radius < paddle1.x + paddle1.width && this.y >= paddle1.y && this.y <= paddle1.y + paddle1.height) {
-            this.x = paddle1.x + paddle1.width + this.radius; // On replace la balle sur la paddle
+        // Si on touche une paddle
+        if (this.x - this.radius < paddle1.x + paddle1.width && (this.y + this.radius > paddle1.y && this.y + this.radius < paddle1.y + paddle1.height)) { // Si la balle touche la paddle 1
+            const ballPaddleDiff = round(this.y-this.radius - (paddle1.y + paddle1.height / 2));
+            const angle = round(90 - (ballPaddleDiff / (paddle1.height / 2 + this.radius)) * (90 - (180 - this.maxAngle)));
+            console.log('angle: ' + angle + '°\nballPaddleDiff: ' + ballPaddleDiff);
+            bounce(angle);
 
-            if (this.speed*this.coefSpeed < this.maxSpeed) { // Si la vitesse est inférieure à la vitesse Max
-                this.speed = -this.speed * this.coefSpeed;
-                this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
-                this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
-            } else {
-                this.speed = -this.maxSpeed;
-                this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
-                this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
-            }
-        }
+            this.x = paddle1.x + paddle1.width + this.radius; // On remet la balle sur la paddle
 
-        // Paddle 2
-        if (this.x + this.radius > paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y + paddle2.height) {
-            this.x = paddle2.x - this.radius; // On replace la balle sur la paddle
+        } else if (this.x + this.radius > canvas.width - paddle2.width && (this.y + this.radius > paddle2.y && this.y + this.radius < paddle2.y + paddle2.height)) { // Si la balle touche la paddle 2
+            const ballPaddleDiff = round(this.y-this.radius - (paddle2.y + paddle2.height / 2));
+            const angle = round(90 + (ballPaddleDiff / (paddle2.height / 2 + this.radius)) * (90 - (180 - this.maxAngle)));
+            console.log('angle: ' + angle + '°\nballPaddleDiff: ' + ballPaddleDiff);
+            bounce(angle);
 
-            if (this.speed*this.coefSpeed < this.maxSpeed) { // Si la vitesse est inférieure à la vitesse Max
-                this.speed = -this.speed * this.coefSpeed;
-                this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
-                this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
-            } else {
-                this.speed = -this.maxSpeed;
-                this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed;
-                this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
-            }
+            this.x = paddle2.x - this.radius; // On remet la balle sur la paddle
         }
 
         // MAJ score
         if (this.x - this.radius < 0) {
             score.player2++;
-            score.update();
             this.reset(canvas);
+            score.update();
         } else if (this.x + this.radius > canvas.width) {
             score.player1++;
-            score.update();
             this.reset(canvas);
+            score.update();
         }
     }
 
