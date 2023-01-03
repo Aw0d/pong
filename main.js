@@ -49,7 +49,7 @@ const settings = {
     paddle2UpKey: "ArrowUp",
     paddle2DownKey: "ArrowDown",
 
-    nbBonus: 1
+    nbBonus: 2
 }
 
 // Construction des classes
@@ -62,7 +62,7 @@ const paddle2 = new Paddle(settings.paddle2Height, settings.paddle2Width, canvas
 
 const score = new Score();
 
-const bonusArr = [];
+let bonusArr = [];
 
 // Fonctions
 // =========
@@ -213,6 +213,9 @@ function resetGame(canvas) {
     paddle2.reset(canvas);
 
     score.reset();
+
+    numBounces = 0;
+    bonusArr = [];
 }
 
 function drawGame() {
@@ -231,7 +234,7 @@ function gameLoop() {
     paddle2.move(keysDown, canvas);
 
     if (ball.paddleCollisionDetection(paddle1, paddle2, canvas)) {
-        numBounces ++;
+        ++ numBounces;
 
         if (bonusArr.length < settings.nbBonus) {
             bonusArr.push(new Bonus(canvas));
@@ -240,11 +243,14 @@ function gameLoop() {
     
     ball.borderCollisionDetection(score, canvas);
 
-    bonusArr.forEach(bonus => {
-        if (bonus.collisionDetection(ball)){
-            bonusArr.splice(bonus, 1);
+    let i = 0;
+    while(i < bonusArr.length) {
+        if (bonusArr[i].collisionDetection(ball)) {
+            bonusArr.splice(i, 1);
+        } else {
+            ++ i;
         }
-    });
+    }
 
     drawGame();
 }
