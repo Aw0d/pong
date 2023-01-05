@@ -51,7 +51,9 @@ const settings = {
     paddle2UpKey: "ArrowUp",
     paddle2DownKey: "ArrowDown",
 
-    nbBonus: 2
+    nbBonus: 2,
+
+    fps: 120
 }
 
 // Construction des classes
@@ -91,7 +93,7 @@ function startNewGame() {
     resetGame(canvas);
 
     // Lance le jeu
-    intervID = setInterval(gameLoop, 1000 / 120);
+    intervID = setInterval(gameLoop, 1000 / settings.fps);
 }
 
 function continueGame() {
@@ -104,7 +106,7 @@ function continueGame() {
     });
 
     // lance le jeu
-    intervID = setInterval(gameLoop, 1000 / 120);
+    intervID = setInterval(gameLoop, 1000 / settings.fps);
 }
 
 function mainMenu() {
@@ -261,7 +263,7 @@ function gameLoop() {
             ++ i;
         }
     }
-    console.log('Bounces: ' + numBounces);
+    //console.log('Bounces: ' + numBounces);
 
     drawGame();
 }
