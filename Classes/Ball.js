@@ -34,7 +34,6 @@ class Ball {
         this.speed = this.initialSpeed;
         this.speedX = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
         this.speedY = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
-        console.log('Reset -> speedX: ' + this.speedX + ', speedY: ' + this.speedY)
     }
 
     paddleCollisionDetection(paddle1, paddle2, canvas) {
@@ -49,11 +48,10 @@ class Ball {
                 : this.maxSpeed;
             this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed * (-this.speedX/Math.abs(this.speedX));
             this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
-            console.log('Bounce -> speedX: ' + this.speedX + ', speedY: ' + this.speedY)
         }
 
         // Si on touche une paddle
-        if (this.x - this.radius < paddle1.x + paddle1.width && (this.y + this.radius > paddle1.y && this.y + this.radius < paddle1.y + paddle1.height)) { // Si la balle touche la paddle 1
+        if (this.x - this.radius < paddle1.x + paddle1.width && (this.y + this.radius > paddle1.y && this.y - this.radius < paddle1.y + paddle1.height)) { // Si la balle touche la paddle 1
             const ballPaddleDiff = round(this.y-this.radius - (paddle1.y + paddle1.height / 2));
             const angle = round(90 - (ballPaddleDiff / (paddle1.height / 2 + this.radius)) * (90 - (180 - this.maxAngle)));
             
@@ -61,7 +59,7 @@ class Ball {
             bounce(angle);
 
             collision = true;
-        } else if (this.x + this.radius > canvas.width - paddle2.width && (this.y + this.radius > paddle2.y && this.y + this.radius < paddle2.y + paddle2.height)) { // Si la balle touche la paddle 2
+        } else if (this.x + this.radius > canvas.width - paddle2.width && (this.y + this.radius > paddle2.y && this.y - this.radius < paddle2.y + paddle2.height)) { // Si la balle touche la paddle 2
             const ballPaddleDiff = round(this.y-this.radius - (paddle2.y + paddle2.height / 2));
             const angle = round(90 - (ballPaddleDiff / (paddle2.height / 2 + this.radius)) * (90 - (180 - this.maxAngle)));
             

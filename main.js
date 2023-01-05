@@ -51,7 +51,7 @@ const settings = {
     paddle2UpKey: "ArrowUp",
     paddle2DownKey: "ArrowDown",
 
-    nbBonus: 2,
+    nbBonus: 1,
 
     fps: 120
 }
