@@ -27,7 +27,7 @@ const useSameSettingsForBothPaddlesCheckbox = document.getElementById('sameSetti
 const colors = {
     player1: '#0DB387',
     player2: '#D6A11A',
-}
+};
 
 const settings = {
     ballRadius: 10,
@@ -51,10 +51,15 @@ const settings = {
     paddle2UpKey: "ArrowUp",
     paddle2DownKey: "ArrowDown",
 
-    nbBonus: 1,
+    nbBonus: 5,
 
     fps: 120
-}
+};
+
+const bonusTypes = [
+    {name: 'SuperSpeed', radius: 20, color: '#ffff00'},
+    {name: 'IncreasePaddleSize', radius: 15, color: '#0000ff'}
+];
 
 // Construction des classes
 // --------------------------
@@ -238,6 +243,9 @@ function drawGame() {
     bonusArr.forEach(bonus => {bonus.draw(ctx)});
 }
 
+let paddleCollision = null;
+let lastHit;
+
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear Canvas
 
@@ -245,27 +253,49 @@ function gameLoop() {
     paddle1.move(keysDown, canvas);
     paddle2.move(keysDown, canvas);
 
-    if (ball.paddleCollisionDetection(paddle1, paddle2, canvas)) {
+    paddleCollision = ball.paddleCollisionDetection(paddle1, paddle2, canvas);
+    if (paddleCollision != null) {
+        lastHit = paddleCollision;
         ++ numBounces;
 
         if (bonusArr.length < settings.nbBonus) {
-            bonusArr.push(new Bonus(canvas));
+            bonusArr.push(new Bonus(bonusTypes, canvas));
         }
     }
     
     ball.borderCollisionDetection(score, canvas);
 
     let i = 0;
+    let bonusName;
     while(i < bonusArr.length) {
-        if (bonusArr[i].collisionDetection(ball)) {
+        bonusName = bonusArr[i].collisionDetection(ball);
+        if (bonusName != null) {
             bonusArr.splice(i, 1);
+            bonusEffect(bonusName, lastHit);
         } else {
             ++ i;
         }
     }
-    //console.log('Bounces: ' + numBounces);
-
     drawGame();
+}
+
+function bonusEffect (bonusName, lastHit) {
+    if (bonusName === 'SuperSpeed') {
+        ball.speedX = ball.speedX * 1.5;
+        ball.speedY = ball.speedY * 1.5;
+    }
+    else if (bonusName === 'IncreasePaddleSize') {
+        let tempSize;
+        if (lastHit === 1) {
+            tempSize = paddle1.height;
+            paddle1.height = paddle1.height + 50;
+            setTimeout(() => {paddle1.height = tempSize}, 5000);
+        } else {
+            tempSize = paddle2.height;
+            paddle2.height = paddle2.height + 50;
+            setTimeout(() => {paddle2.height = tempSize}, 5000);
+        }
+    }
 }
 
 // Event Listener
