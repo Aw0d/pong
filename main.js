@@ -8,8 +8,10 @@ const ctx = canvas.getContext('2d');
 // Object pour les détections de touches
 let keysDown = {};
 
-// Entier indiquant l'état
-let state = 0;
+// Variable pour stocker l'interval ID de la game loop
+let intervID = null;
+
+let isPaused = false;
 
 let numBounces = 0;
 
@@ -29,7 +31,7 @@ const colors = {
 
 const settings = {
     ballRadius: 10,
-    ballSpeed: 3,
+    ballSpeed: 5,
     ballCoefSpeed: 1.1,
     ballMaxSpeed: 8,
     ballMaxAngle: 140,
@@ -89,10 +91,12 @@ function startNewGame() {
     resetGame(canvas);
 
     // Lance le jeu
-    state = 1;
+    intervID = setInterval(gameLoop, 1000 / 120);
 }
 
 function continueGame() {
+    isPaused = false;
+
     // Cache tous les menus
     const menus = Array.from(document.getElementsByClassName('menu'));
     menus.forEach(menu => {
@@ -100,11 +104,13 @@ function continueGame() {
     });
 
     // lance le jeu
-    state = 1;
+    intervID = setInterval(gameLoop, 1000 / 120);
 }
 
 function mainMenu() {
-    state = 0;
+    // Stop le jeu
+    clearInterval(intervID);
+    intervID = null;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear Canvas
 
@@ -120,7 +126,11 @@ function mainMenu() {
 }
 
 function pauseMenu() {
-    state = 2;
+    isPaused = true;
+
+    // Stop le jeu
+    clearInterval(intervID);
+    intervID = null;
 
     showMenu('pauseMenu');
 }
@@ -251,30 +261,9 @@ function gameLoop() {
             ++ i;
         }
     }
+    console.log('Bounces: ' + numBounces);
 
     drawGame();
-}
-
-// Main
-// ----
-
-function mainLoop() {
-
-    if (state === 0) { // Menu du jeu
-
-
-    } else if (state === 1) { // Jeu
-        gameLoop();
-
-
-    } else if (state === 2) { // Menu pause en Jeu
-
-
-    } else if (state === 3) { // Settings
-
-
-    }
-
 }
 
 // Event Listener
@@ -291,9 +280,9 @@ document.addEventListener('keydown', (e) => {
 
     // Mettre pause quand on appuie sur Echap
     if (e.code === 'Escape') {
-        if (state === 1) {
+        if (intervID != null) {
             pauseMenu();
-        } else if (state === 2) {
+        } else if (isPaused) {
             continueGame();
         }
     }
@@ -340,6 +329,4 @@ window.onload = function () {
     });
 
     setInputsDefaultValue(inputs);
-
-    setInterval(mainLoop, 1000 / 144);
 };
