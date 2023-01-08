@@ -18,9 +18,9 @@ class Ball {
         this.color = color;
     }
 
-    move(canvas) {
-        this.x += this.speedX;
-        this.y += this.speedY;
+    move(canvas, elapsedTime) {
+        this.x += this.speedX * elapsedTime;
+        this.y += this.speedY * elapsedTime;
 
         // Rebondir sur les bords du haut et du bas du canvas
         if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {

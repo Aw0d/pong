@@ -14,12 +14,12 @@ class Paddle {
         this.downKey = downKey;
     }
 
-    move(keysDown, canvas) {
-        if (this.upKey in keysDown && this.y > 0) { // Touche W
-            this.y -= this.speed;
+    move(keysDown, canvas, elapsedTime) {
+        if (this.upKey in keysDown && this.y > 0) {
+            this.y -= this.speed * elapsedTime;
         }
-        if (this.downKey in keysDown && this.y + this.height < canvas.height) { // Touche S
-            this.y += this.speed;
+        if (this.downKey in keysDown && this.y + this.height < canvas.height) {
+            this.y += this.speed * elapsedTime;
         }
     }
 
