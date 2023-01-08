@@ -2,7 +2,7 @@ class SettingsManager {
     constructor () {
         window.settings = {
             ballRadius: 10,
-            ballSpeed: 800,
+            ballSpeed: 700,
             ballCoefSpeed: 1.05,
             ballMaxSpeed: 2000,
             ballMaxAngle: 140,
@@ -10,14 +10,14 @@ class SettingsManager {
         
             paddle1Height: 120,
             paddle1Width: 10,
-            paddle1Speed: 1000,
+            paddle1Speed: 800,
             paddle1Color: colors.player1,
             paddle1UpKey: "KeyW",
             paddle1DownKey: "KeyS",
         
             paddle2Height: 120,
             paddle2Width: 10,
-            paddle2Speed: 1000,
+            paddle2Speed: 800,
             paddle2Color: colors.player2,
             paddle2UpKey: "ArrowUp",
             paddle2DownKey: "ArrowDown",
