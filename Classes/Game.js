@@ -13,6 +13,8 @@ class Game {
 
         this.score = new Score();
 
+        this.bonusManager = new BonusManager(settings);
+
         // animationFrame
         this.animationFrameId = null;
 
@@ -34,6 +36,8 @@ class Game {
 
         this.score.reset();
 
+        this.bonusManager.reset();
+
         this.numBounces = 0;
     }
 
@@ -41,6 +45,7 @@ class Game {
         this.ball.draw(this.ctx);
         this.paddle1.draw(this.ctx);
         this.paddle2.draw(this.ctx);
+        this.bonusManager.draw(this.ctx);
     }
 
     updateItems(elapsedTime) {
@@ -56,15 +61,26 @@ class Game {
 
         this.updateItems(elapsedTime);
 
-        this.ball.paddleCollisionDetection(this.paddle1, this.paddle2, this.canvas);
-        this.ball.borderCollisionDetection(this.score, this.canvas)
+        this.bonusManager.collisionDetection(this.ball);
 
+        const paddleCollision = this.ball.paddleCollisionDetection(this.paddle1, this.paddle2, this.canvas);
+        // Si la balle touche une Paddle, on ajoute un bonus
+        if (paddleCollision != null) {
+            this.bonusManager.addRandomBonus(this.canvas);
+        }
+
+        const borderCollision = this.ball.borderCollisionDetection(this.score, this.canvas);
+        // Si la balle touche un bord
+        if (borderCollision) {
+            this.pause();
+            this.reset();
+        } else { // Le jeu continue
+            this.lastTime = time;
+            this.timeSpentPaused = 0
+    
+            this.animationFrameId = requestAnimationFrame(this.update.bind(this));
+        }
         this.draw()
-
-        this.lastTime = time;
-        this.timeSpentPaused = 0
-
-        this.animationFrameId = requestAnimationFrame(this.update.bind(this));
     }
 
     start() {

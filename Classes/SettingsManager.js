@@ -22,7 +22,7 @@ class SettingsManager {
             paddle2UpKey: "ArrowUp",
             paddle2DownKey: "ArrowDown",
         
-            nbBonus: 5,
+            maxBonus: 5,
         
             fps: 120
         };

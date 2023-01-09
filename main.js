@@ -12,11 +12,6 @@ const colors = {
     player2: '#D6A11A',
 };
 
-const bonusTypes = [
-    {name: 'SuperSpeed', radius: 20, color: '#ffff00'},
-    {name: 'IncreasePaddleSize', radius: 15, color: '#0000ff'}
-];
-
 // Construction des classes
 // --------------------------
 

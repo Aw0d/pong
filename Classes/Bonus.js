@@ -1,7 +1,5 @@
 class Bonus {
-    constructor(bonusTypes, canvas) {
-        let bonusType = bonusTypes[Math.floor(Math.random() * (bonusTypes.length))];
-        
+    constructor(bonusType, canvas) {
         this.name = bonusType.name;
         this.radius = bonusType.radius;
         this.color = bonusType.color;
