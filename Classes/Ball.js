@@ -1,5 +1,5 @@
 class Ball {
-    constructor(radius, speed, coefSpeed, maxSpeed, maxAngle, color, canvas) {
+    constructor(radius, speed, acceleration, maxSpeed, maxAngle, color, canvas) {
         this.radius = radius;
 
         this.x = canvas.width / 2;
@@ -10,7 +10,7 @@ class Ball {
         this.speedY = Math.sin(45 * (Math.PI / 180)) * speed;
         this.initialSpeed = speed;
 
-        this.coefSpeed = coefSpeed;
+        this.acceleration = acceleration;
         this.maxSpeed = maxSpeed;
 
         this.maxAngle = maxAngle;
@@ -18,9 +18,11 @@ class Ball {
         this.color = color;
     }
 
-    move(canvas, elapsedTime) {
-        this.x += this.speedX * elapsedTime;
-        this.y += this.speedY * elapsedTime;
+    move(canvas, elapsedTime, executionTime) {
+        this.updateSpeed(executionTime);
+        
+        this.x += this.speedX * this.speed * elapsedTime;
+        this.y += this.speedY * this.speed * elapsedTime;
 
         // Rebondir sur les bords du haut et du bas du canvas
         if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
@@ -28,12 +30,17 @@ class Ball {
         }
     }
 
+    updateSpeed(time) {
+        this.speed = this.initialSpeed + (this.maxSpeed - this.initialSpeed) * (1 - Math.exp(-this.acceleration/100*time));
+    }
+    
+
     reset(canvas) {
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
         this.speed = this.initialSpeed;
-        this.speedX = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
-        this.speedY = Math.sin(45 * (Math.PI / 180)) * this.speed * (Math.random() > 0.5 ? 1 : -1);
+        this.speedX = Math.sin(45 * (Math.PI / 180)) * (Math.random() > 0.5 ? 1 : -1);
+        this.speedY = Math.sin(45 * (Math.PI / 180)) * (Math.random() > 0.5 ? 1 : -1);
     }
 
     paddleCollisionDetection(paddle1, paddle2, canvas) {
@@ -43,11 +50,8 @@ class Ball {
         }
         
         const bounce = (angle) => {
-            this.speed = (this.speed * this.coefSpeed < this.maxSpeed)
-                ? this.speed * this.coefSpeed
-                : this.maxSpeed;
-            this.speedX = Math.sin(angle * (Math.PI / 180)) * this.speed * (-this.speedX/Math.abs(this.speedX));
-            this.speedY = Math.cos(angle * (Math.PI / 180)) * this.speed;
+            this.speedX = Math.sin(angle * (Math.PI / 180)) * (-this.speedX/Math.abs(this.speedX));
+            this.speedY = Math.cos(angle * (Math.PI / 180));
         }
 
         // Si on touche une paddle
@@ -95,7 +99,7 @@ class Ball {
         ctx.closePath();
     }
 
-    updateSettings(radius, speed, coefSpeed, maxSpeed, maxAngle, color) {
+    updateSettings(radius, speed, acceleration, maxSpeed, maxAngle, color) {
         this.radius = radius;
 
         this.speed = speed;
@@ -103,7 +107,7 @@ class Ball {
         this.speedY = Math.cos(45 * (Math.PI / 180)) * speed;
         this.initialSpeed = speed;
 
-        this.coefSpeed = coefSpeed;
+        this.acceleration = acceleration;
         this.maxSpeed = maxSpeed;
 
         this.maxAngle = maxAngle;

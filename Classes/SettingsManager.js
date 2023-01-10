@@ -2,22 +2,22 @@ class SettingsManager {
     constructor () {
         window.settings = {
             ballRadius: 10,
-            ballSpeed: 700,
-            ballCoefSpeed: 1.05,
-            ballMaxSpeed: 2000,
+            ballSpeed: 300,
+            ballacceleration: 5,
+            ballMaxSpeed: 1000,
             ballMaxAngle: 140,
             ballColor: "#ababab",
         
             paddle1Height: 120,
             paddle1Width: 10,
-            paddle1Speed: 800,
+            paddle1Speed: 500,
             paddle1Color: colors.player1,
             paddle1UpKey: "KeyW",
             paddle1DownKey: "KeyS",
         
             paddle2Height: 120,
             paddle2Width: 10,
-            paddle2Speed: 800,
+            paddle2Speed: 500,
             paddle2Color: colors.player2,
             paddle2UpKey: "ArrowUp",
             paddle2DownKey: "ArrowDown",
@@ -55,7 +55,6 @@ class SettingsManager {
 
 
     updateSettings(e) {
-        console.log(window.settings)
         if (e.target.validity.valid) { // Si la valeur dans input est valide
             if (e.target.type === 'number') {
                 window.settings[e.target.id] = parseFloat(e.target.value);
@@ -68,7 +67,7 @@ class SettingsManager {
                 window.settings.paddle2Speed = window.settings.paddle1Speed;
             }
     
-            game.ball.updateSettings(settings.ballRadius, settings.ballSpeed, settings.ballCoefSpeed, settings.ballMaxSpeed, settings.ballMaxAngle, settings.ballColor);
+            game.ball.updateSettings(settings.ballRadius, settings.ballSpeed, settings.ballacceleration, settings.ballMaxSpeed, settings.ballMaxAngle, settings.ballColor);
     
             game.paddle1.updateSettings(settings.paddle1Height, settings.paddle1Width, settings.paddle1Speed, settings.paddle1Color, settings.paddle1UpKey, settings.paddle1DownKey);
             game.paddle2.updateSettings(settings.paddle2Height, settings.paddle2Width, settings.paddle2Speed, settings.paddle2Color, settings.paddle2UpKey, settings.paddle2DownKey);

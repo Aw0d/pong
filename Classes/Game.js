@@ -6,7 +6,7 @@ class Game {
 
         // Objets
         const settings = window.settings;
-        this.ball = new Ball(settings.ballRadius, settings.ballSpeed, settings.ballCoefSpeed, settings.ballMaxSpeed, settings.ballMaxAngle, settings.ballColor, this.canvas);
+        this.ball = new Ball(settings.ballRadius, settings.ballSpeed, settings.ballacceleration, settings.ballMaxSpeed, settings.ballMaxAngle, settings.ballColor, this.canvas);
 
         this.paddle1 = new Paddle(settings.paddle1Height, settings.paddle1Width, 0, settings.paddle1Speed, settings.paddle1Color, settings.paddle1UpKey, settings.paddle1DownKey, this.canvas);
         this.paddle2 = new Paddle(settings.paddle2Height, settings.paddle2Width, this.canvas.width - settings.paddle2Width, settings.paddle2Speed, settings.paddle2Color, settings.paddle2UpKey, settings.paddle2DownKey, this.canvas);
@@ -18,6 +18,7 @@ class Game {
         // animationFrame
         this.animationFrameId = null;
 
+        this.startTime = 0;
         this.lastTime = 0;
         this.pauseTime = 0;
         this.timeSpentPaused = 0;
@@ -49,7 +50,7 @@ class Game {
     }
 
     updateItems(elapsedTime) {
-        this.ball.move(this.canvas, elapsedTime);
+        this.ball.move(this.canvas, elapsedTime, (performance.now()-this.startTime)/1000);
         this.paddle1.move(window.keysDown, this.canvas, elapsedTime)
         this.paddle2.move(window.keysDown, this.canvas, elapsedTime)
     }
@@ -87,6 +88,7 @@ class Game {
         this.isStarted = true;
         this.isPaused = false;
 
+        this.startTime = performance.now();
         this.timeSpentPaused = performance.now() - this.pauseTime;
         this.animationFrameId = requestAnimationFrame(this.update.bind(this));
     }
