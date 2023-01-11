@@ -68,7 +68,7 @@ class Game {
             this.bonusManager.addRandomBonus(this.canvas);
         }
 
-        const borderCollision = this.ball.borderCollisionDetection(this.score, this.canvas);
+        const borderCollision = this.ball.borderCollisionDetection(this.canvas);
         // Si la balle touche un bord (point marqué)
         if (borderCollision === 1) {
             this.score.player1 ++;

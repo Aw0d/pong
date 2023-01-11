@@ -43,7 +43,6 @@ class Ball {
     reset(canvas) {
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
-        this.speed = this.initialSpeed;
         this.speedX = Math.sin(45 * (Math.PI / 180)) * (Math.random() > 0.5 ? 1 : -1);
         this.speedY = Math.sin(45 * (Math.PI / 180)) * (Math.random() > 0.5 ? 1 : -1);
 
@@ -85,7 +84,7 @@ class Ball {
         return collision;
     }
 
-    borderCollisionDetection(score, canvas) {
+    borderCollisionDetection(canvas) {
         // MAJ score
         let borderCollision = null;
         if (this.x - this.radius < 0) {
