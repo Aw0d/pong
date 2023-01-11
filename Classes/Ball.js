@@ -46,6 +46,8 @@ class Ball {
         this.speed = this.initialSpeed;
         this.speedX = Math.sin(45 * (Math.PI / 180)) * (Math.random() > 0.5 ? 1 : -1);
         this.speedY = Math.sin(45 * (Math.PI / 180)) * (Math.random() > 0.5 ? 1 : -1);
+
+        this.boost = false;
     }
 
     paddleCollisionDetection(paddle1, paddle2, canvas) {
