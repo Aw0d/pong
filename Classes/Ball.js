@@ -16,6 +16,8 @@ class Ball {
         this.maxAngle = maxAngle;
 
         this.color = color;
+
+        this.boost = false;
     }
 
     move(canvas, elapsedTime, executionTime) {
@@ -31,9 +33,12 @@ class Ball {
     }
 
     updateSpeed(time) {
-        this.speed = this.initialSpeed + (this.maxSpeed - this.initialSpeed) * (1 - Math.exp(-this.acceleration/100*time));
-    }
-    
+        if (!this.boost) {
+            this.speed = this.initialSpeed + (this.maxSpeed - this.initialSpeed) * (1 - Math.exp(-this.acceleration/100*time));
+        } else {
+            this.speed = this.initialSpeed + (this.maxSpeed - this.initialSpeed) * (1 - Math.exp(-this.acceleration*time));
+        }
+    }    
 
     reset(canvas) {
         this.x = canvas.width / 2;
@@ -62,6 +67,7 @@ class Ball {
             this.x = paddle1.x + paddle1.width + this.radius; // On remet la balle sur la paddle
             bounce(angle);
 
+            this.boost = false;
             collision = 1;
         } else if (this.x + this.radius > canvas.width - paddle2.width && (this.y + this.radius > paddle2.y && this.y - this.radius < paddle2.y + paddle2.height)) { // Si la balle touche la paddle 2
             const ballPaddleDiff = round(this.y-this.radius - (paddle2.y + paddle2.height / 2));
@@ -70,6 +76,7 @@ class Ball {
             this.x = paddle2.x - this.radius; // On remet la balle sur la paddle
             bounce(angle);
 
+            this.boost = false;
             collision = 2;
         }
 

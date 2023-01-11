@@ -35,8 +35,6 @@ class Game {
         this.paddle1.reset(this.canvas);
         this.paddle2.reset(this.canvas);
 
-        this.score.reset();
-
         this.bonusManager.reset();
 
         this.numBounces = 0;
@@ -71,10 +69,11 @@ class Game {
         }
 
         const borderCollision = this.ball.borderCollisionDetection(this.score, this.canvas);
-        // Si la balle touche un bord
+        // Si la balle touche un bord (point marqué)
         if (borderCollision) {
             this.pause();
             this.reset();
+            
         } else { // Le jeu continue
             this.lastTime = time;
             this.timeSpentPaused = 0

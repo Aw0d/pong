@@ -21,6 +21,7 @@ const game = new Game(settings);
 
 function startNewGame() {
     game.reset();
+    game.score.reset();
     interface.hideAllMenu();
     game.start();
 }

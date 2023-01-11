@@ -20,9 +20,10 @@ class BonusManager {
     collisionDetection(ball) {
         for(let i = 0; i < this.bonusArr.length; i++) {
             if (this.bonusArr[i].collisionDetection(ball)) {
+                this.bonusEffect(this.bonusArr[i].name, ball);
+                
                 this.bonusArr.splice(i, 1);
                 i--;
-                // exécuter l'action associée
             }
         }
     }
@@ -35,5 +36,14 @@ class BonusManager {
         this.bonusArr.forEach(bonus => {
             bonus.draw(ctx);
         })
+    }
+
+    bonusEffect(name, ball) {
+        if (name === 'SuperSpeed') {
+            ball.boost = true;
+        }
+        else if (name === 'IncreasePaddleSize') {
+            
+        }
     }
 }
