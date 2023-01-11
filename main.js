@@ -17,7 +17,7 @@ const colors = {
 
 const settingsManager = new SettingsManager();
 const interface = new Interface();
-const game = new Game(settings);
+const game = new Game();
 
 function startNewGame() {
     game.reset();
@@ -39,6 +39,10 @@ function mainMenu() {
 function pauseGame() {
     game.pause();
     interface.showPauseMenu();
+}
+
+function scored(numPlayer) {
+    interface.showScoredMenu(numPlayer);
 }
 
 function settingsMenu() {

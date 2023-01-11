@@ -85,15 +85,11 @@ class Ball {
 
     borderCollisionDetection(score, canvas) {
         // MAJ score
-        let borderCollision = false;
+        let borderCollision = null;
         if (this.x - this.radius < 0) {
-            score.player2++;
-            score.update();
-            borderCollision = true;
+            borderCollision = 2;
         } else if (this.x + this.radius > canvas.width) {
-            score.player1++;
-            score.update();
-            borderCollision = true;
+            borderCollision = 1;
         }
         return borderCollision;
     }

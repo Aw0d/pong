@@ -64,6 +64,7 @@ header div {
     margin: 0;
 
     font-size: 1em;
+    font-variant-caps: small-caps;
 }
 
 .score:first-child {
@@ -141,6 +142,16 @@ main {
     gap: 16px;
 }
 
+#playerScored {
+    font-size: 1.8em;
+    font-variant-caps: small-caps;
+
+    transform: skew(4deg);
+}
+#playerScored span {
+    font-size: 2em;
+}
+
 button {
     cursor: pointer;
 
@@ -152,6 +163,7 @@ button {
 
     font-family: 'Alien-Encounters-Solid-Regular';
     font-size: 1.4em;
+    font-variant-caps: small-caps;
     text-align: center;
 
     border: none;

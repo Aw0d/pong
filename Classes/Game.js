@@ -70,10 +70,20 @@ class Game {
 
         const borderCollision = this.ball.borderCollisionDetection(this.score, this.canvas);
         // Si la balle touche un bord (point marqué)
-        if (borderCollision) {
+        if (borderCollision === 1) {
+            this.score.player1 ++;
+            this.score.update()
+            
             this.pause();
             this.reset();
+            scored(1);
+        } else if (borderCollision === 2) {
+            this.score.player2 ++;
+            this.score.update()
             
+            this.pause();
+            this.reset();
+            scored(2);
         } else { // Le jeu continue
             this.lastTime = time;
             this.timeSpentPaused = 0
