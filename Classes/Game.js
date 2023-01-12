@@ -14,6 +14,7 @@ class Game {
         this.score = new Score();
 
         this.bonusManager = new BonusManager(settings);
+        this.lastTimeBonusAdded = 0;
 
         // animationFrame
         this.animationFrameId = null;
@@ -62,10 +63,15 @@ class Game {
 
         this.bonusManager.collisionDetection(this.ball);
 
+        if ((performance.now()-this.lastTimeBonusAdded)/1000 > 2 && Math.floor(((performance.now()-this.startTime)/1000)%10) === 8) {
+            this.bonusManager.addRandomBonus(this.canvas);
+            this.lastTimeBonusAdded = performance.now();
+        }
+
         const paddleCollision = this.ball.paddleCollisionDetection(this.paddle1, this.paddle2, this.canvas);
         // Si la balle touche une Paddle, on ajoute un bonus
         if (paddleCollision != null) {
-            this.bonusManager.addRandomBonus(this.canvas);
+            //this.bonusManager.addRandomBonus(this.canvas);
         }
 
         const borderCollision = this.ball.borderCollisionDetection(this.canvas);
