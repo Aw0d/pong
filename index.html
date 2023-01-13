@@ -1,120 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Pong Game</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <div>
-            <p class="score">Player 1<br><span id="player1Score">0</span></p>
-    
-            <!--<img class="logo" src="./img/pong_logo.png" alt="Pong Logo">-->
-            <h1 class="logo">Pong</h1>
-    
-            <p class="score">Player 2<br><span id="player2Score">0</span></p>
-        </div>
+      <div>
+        <p class="score">Player 1<br /><span id="player1Score">0</span></p>
+
+        <!--<img class="logo" src="./img/pong_logo.png" alt="Pong Logo">-->
+        <h1 class="logo">Pong</h1>
+
+        <p class="score">Player 2<br /><span id="player2Score">0</span></p>
+      </div>
     </header>
-    
+
     <main>
+      <div class="game">
+        <canvas id="gameCanvas" width="1200" height="600"></canvas>
 
-        <div class="game">
-
-            <canvas id="gameCanvas" width="1200" height="600"></canvas>
-
-            <div id="mainMenu" class="menu">
-                <div class="buttonContainer">
-                    <button id="startButton">Jouer</button>
-                    <button id="settingsButton">Settings</button>
-                </div>
-            </div>
-
-            <div id="pauseMenu" class="menu">
-                <p id="playerScored">Player <span id="playerNumber">1</span> scored</p>
-                <div class="buttonContainer">
-                    <button id="continueButton">Continuer</button>
-                    <button id="restartButton">Recommencer</button>
-                    <button id="leaveButton">Quitter</button>
-                </div>
-            </div>
-
-            <div id="settingsMenu" class="menu">
-                <div class="settingsContainer">
-                    <form>
-                        <fieldset class="ballSettings">
-                            <legend>Ball Settings</legend>
-                            <p>
-                                <label>Ball radius:</label>
-                                <input type="number" id="ballRadius" name="ballRadius" min="5" max="30">
-                            </p>
-        
-                            <p>
-                                <label>Ball speed:</label>
-                                <input type="number" id="ballSpeed" name="ballSpeed" min="100" max="2000">
-                            </p>
-        
-                            <p>
-                                <label>Ball max angle:</label>
-                                <input type="number" id="ballMaxAngle" name="ballMaxAngle" min="90" max="180">
-                            </p>
-        
-                            <p>
-                                <label>Ball coef speed:</label>
-                                <input type="number" id="ballacceleration" name="ballacceleration" min="0" max="10" step="0.1">
-                            </p>
-        
-                            <p>
-                                <label>Ball max speed:</label>
-                                <input type="number" id="ballMaxSpeed" name="ballMaxSpeed" min="200" max="2000">
-                            </p>
-                        </fieldset>
-    
-                        <fieldset class="paddlesSettings">
-                            <legend>Paddles Settings</legend>
-                            <p>
-                                <label>Same settings for both paddles?</label>
-                                <input type="checkbox" id="sameSettingsBothPaddles" name="sameSettingsBothPaddles" checked="true">
-                            </p>
-    
-                            <fieldset>
-                                <legend>Paddle<span id="paddlesSettingsLegend">s</span></legend>
-                                <p>
-                                    <label>Paddle width:</label>
-                                    <input type="number" id="paddle1Height" name="paddle1Height" min="30" max="600">
-                                </p>
-    
-                                <p>
-                                    <label>Paddle speed:</label>
-                                    <input type="number" id="paddle1Speed" name="paddle1Speed" min="200" max="2000">
-                                </p>
-                            </fieldset>
-    
-                            <fieldset id="paddle2Settings">
-                                <legend>Paddle 2</legend>
-                                <p>
-                                    <label>Paddle width:</label>
-                                    <input type="number" id="paddle2Height" name="paddle2Height" min="200" max="300">
-                                </p>
-    
-                                <p>
-                                    <label>Paddle speed:</label>
-                                    <input type="number" id="paddle2Speed" name="paddle2Speed" min="2" max="2000">
-                                </p>
-                            </fieldset>
-                        </fieldset>
-                    </form>
-                    <button id="menuButton">Menu</button>
-                </div>
-            </div>
-
+        <div id="mainMenu" class="menu">
+          <div class="buttonContainer">
+            <button id="startButton">Jouer</button>
+            <button id="settingsButton">Settings</button>
+          </div>
         </div>
 
+        <div id="pauseMenu" class="menu">
+          <p id="playerScored">
+            Player <span id="playerNumber">1</span> scored
+          </p>
+          <div class="buttonContainer">
+            <button id="continueButton">Continuer</button>
+            <button id="restartButton">Recommencer</button>
+            <button id="leaveButton">Quitter</button>
+          </div>
+        </div>
+
+        <div id="settingsMenu" class="menu">
+          <div class="settingsContainer">
+            <form>
+              <fieldset class="ballSettings">
+                <legend>Ball Settings</legend>
+                <p>
+                  <label>Ball radius:</label>
+                  <input
+                    type="number"
+                    id="ballRadius"
+                    name="ballRadius"
+                    min="5"
+                    max="30"
+                  />
+                </p>
+
+                <p>
+                  <label>Ball speed:</label>
+                  <input
+                    type="number"
+                    id="ballSpeed"
+                    name="ballSpeed"
+                    min="100"
+                    max="2000"
+                  />
+                </p>
+
+                <p>
+                  <label>Ball max angle:</label>
+                  <input
+                    type="number"
+                    id="ballMaxAngle"
+                    name="ballMaxAngle"
+                    min="90"
+                    max="180"
+                  />
+                </p>
+
+                <p>
+                  <label>Ball coef speed:</label>
+                  <input
+                    type="number"
+                    id="ballacceleration"
+                    name="ballacceleration"
+                    min="0"
+                    max="10"
+                    step="0.1"
+                  />
+                </p>
+
+                <p>
+                  <label>Ball max speed:</label>
+                  <input
+                    type="number"
+                    id="ballMaxSpeed"
+                    name="ballMaxSpeed"
+                    min="200"
+                    max="2000"
+                  />
+                </p>
+              </fieldset>
+
+              <fieldset class="paddlesSettings">
+                <legend>Paddles Settings</legend>
+                <p>
+                  <label>Same settings for both paddles?</label>
+                  <input
+                    type="checkbox"
+                    id="sameSettingsBothPaddles"
+                    name="sameSettingsBothPaddles"
+                    checked="true"
+                  />
+                </p>
+
+                <fieldset>
+                  <legend>
+                    Paddle<span id="paddlesSettingsLegend">s</span>
+                  </legend>
+                  <p>
+                    <label>Paddle width:</label>
+                    <input
+                      type="number"
+                      id="paddle1Height"
+                      name="paddle1Height"
+                      min="30"
+                      max="600"
+                    />
+                  </p>
+
+                  <p>
+                    <label>Paddle speed:</label>
+                    <input
+                      type="number"
+                      id="paddle1Speed"
+                      name="paddle1Speed"
+                      min="200"
+                      max="2000"
+                    />
+                  </p>
+                </fieldset>
+
+                <fieldset id="paddle2Settings">
+                  <legend>Paddle 2</legend>
+                  <p>
+                    <label>Paddle width:</label>
+                    <input
+                      type="number"
+                      id="paddle2Height"
+                      name="paddle2Height"
+                      min="200"
+                      max="300"
+                    />
+                  </p>
+
+                  <p>
+                    <label>Paddle speed:</label>
+                    <input
+                      type="number"
+                      id="paddle2Speed"
+                      name="paddle2Speed"
+                      min="2"
+                      max="2000"
+                    />
+                  </p>
+                </fieldset>
+              </fieldset>
+            </form>
+            <button id="menuButton">Menu</button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer>
-        <small>&copy; Copyright 2023, Mathieu C. All Rights Reserved</small>
+      <small>&copy; Copyright 2023, Mathieu C. All Rights Reserved</small>
     </footer>
 
     <script src="./Classes/Interface.js"></script>
@@ -127,5 +187,5 @@
     <script src="./Classes/Game.js"></script>
 
     <script src="./main.js"></script>
-</body>
+  </body>
 </html>
