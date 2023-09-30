@@ -1,13 +1,13 @@
 @font-face {
   font-family: "Alien-Encounters-Regular";
-  src: url("/fonts/Alien-Encounters-Regular.ttf") format("truetype");
+  src: url("fonts/Alien-Encounters-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Alien-Encounters-Solid-Regular";
-  src: url("/fonts/Alien-Encounters-Solid-Regular.ttf") format("truetype");
+  src: url("fonts/Alien-Encounters-Solid-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
