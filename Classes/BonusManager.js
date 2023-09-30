@@ -2,7 +2,7 @@ class BonusManager {
   constructor(settings) {
     this.bonusTypes = [
       { name: "SuperSpeed", radius: 18, color: "#ffff00" },
-      { name: "IncreasePaddleSize", radius: 30, color: "#0000ff" },
+      { name: "IncreasePaddleSize", radius: 15, color: "#0000ff" },
     ];
 
     this.bonusArr = [];
@@ -44,7 +44,7 @@ class BonusManager {
       ball.boost = true;
     } else if (name === "IncreasePaddleSize") {
       let paddle = ball.lastPaddleTouched;
-      let size = 200;
+      let size = 100;
 
       let initialHeight = paddle.height;
       paddle.height = paddle.height + size;
