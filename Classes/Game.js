@@ -101,15 +101,7 @@ class Game {
       this.lastTimeBonusAdded = performance.now();
     }
 
-    const paddleCollision = this.ball.paddleCollisionDetection(
-      this.paddle1,
-      this.paddle2,
-      this.canvas
-    );
-    // Si la balle touche une Paddle, on ajoute un bonus
-    if (paddleCollision != null) {
-      //this.bonusManager.addRandomBonus(this.canvas);
-    }
+    this.ball.paddleCollisionDetection(this.paddle1, this.paddle2, this.canvas);
 
     const borderCollision = this.ball.borderCollisionDetection(this.canvas);
     // Si la balle touche un bord (point marqué)

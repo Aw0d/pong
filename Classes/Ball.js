@@ -18,6 +18,7 @@ class Ball {
     this.color = color;
 
     this.boost = false;
+    this.lastPaddleTouched;
   }
 
   move(canvas, elapsedTime, executionTime) {
@@ -58,7 +59,6 @@ class Ball {
   }
 
   paddleCollisionDetection(paddle1, paddle2, canvas) {
-    let collision = null;
     const round = (num) => {
       return Math.round(num * 10) / 10;
     };
@@ -90,7 +90,7 @@ class Ball {
       bounce(angle);
 
       this.boost = false;
-      collision = 1;
+      this.lastPaddleTouched = paddle1;
     } else if (
       this.x + this.radius > canvas.width - paddle2.width &&
       this.y + this.radius > paddle2.y &&
@@ -110,10 +110,8 @@ class Ball {
       bounce(angle);
 
       this.boost = false;
-      collision = 2;
+      this.lastPaddleTouched = paddle2;
     }
-
-    return collision;
   }
 
   borderCollisionDetection(canvas) {

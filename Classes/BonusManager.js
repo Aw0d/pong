@@ -1,8 +1,8 @@
 class BonusManager {
   constructor(settings) {
     this.bonusTypes = [
-      { name: "SuperSpeed", radius: 20, color: "#ffff00" },
-      { name: "IncreasePaddleSize", radius: 15, color: "#0000ff" },
+      { name: "SuperSpeed", radius: 18, color: "#ffff00" },
+      { name: "IncreasePaddleSize", radius: 30, color: "#0000ff" },
     ];
 
     this.bonusArr = [];
@@ -43,6 +43,17 @@ class BonusManager {
     if (name === "SuperSpeed") {
       ball.boost = true;
     } else if (name === "IncreasePaddleSize") {
+      let paddle = ball.lastPaddleTouched;
+      let size = 200;
+
+      let initialHeight = paddle.height;
+      paddle.height = paddle.height + size;
+      paddle.y = paddle.y - size / 2;
+
+      setTimeout(function () {
+        paddle.height = initialHeight;
+        paddle.y = paddle.y + size / 2;
+      }, 5000);
     }
   }
 }
